@@ -180,6 +180,7 @@ function GridFloor({ progress }: { progress: number }) {
 function JourneySceneInner({ progress }: { progress: number }) {
   return (
     <>
+      <color attach="background" args={['#F8FAFC']} />
       <CameraRig progress={progress} />
       <ambientLight intensity={1.5} color="#ffffff" />
       <directionalLight intensity={0.8} position={[5, 10, 5]} color="#ffffff" />
