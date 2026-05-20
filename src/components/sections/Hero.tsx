@@ -172,7 +172,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer"
+          className="absolute bottom-32 sm:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer"
           onClick={() => document.querySelector('#services')?.scrollIntoView({ behavior: 'smooth' })}
         >
           <span className="font-mono text-[10px] tracking-[0.4em] text-[#1E1B4B]">
