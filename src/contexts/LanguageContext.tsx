@@ -9,6 +9,7 @@ interface Translations {
     services: string;
     journey: string;
     process: string;
+    portfolio: string;
     contact: string;
     cta: string;
   };
@@ -58,6 +59,12 @@ interface Translations {
     line3: string;
     sub: string;
   };
+  portfolio: {
+    tag: string;
+    title: string;
+    sub: string;
+    visitLabel: string;
+  };
   contact: {
     tag: string;
     title: string;
@@ -75,6 +82,7 @@ const translations: Record<Language, Translations> = {
       services: 'Diensten',
       journey: 'Journey',
       process: 'Proces',
+      portfolio: 'Portfolio',
       contact: 'Contact',
       cta: 'Start Project',
     },
@@ -164,6 +172,12 @@ const translations: Record<Language, Translations> = {
       line3: 'MOEILIJK.',
       sub: 'Wij nemen de projecten aan die anderen weigeren. Complexiteit is ons speelterrein.',
     },
+    portfolio: {
+      tag: '// ONS WERK',
+      title: 'Projecten die spreken.',
+      sub: 'Elk project is een bewijs dat niets te moeilijk is.',
+      visitLabel: 'Bezoek website',
+    },
     contact: {
       tag: '// KLAAR OM TE BOUWEN?',
       title: 'Laat ons praten.',
@@ -179,6 +193,7 @@ const translations: Record<Language, Translations> = {
       services: 'Services',
       journey: 'Journey',
       process: 'Process',
+      portfolio: 'Portfolio',
       contact: 'Contact',
       cta: 'Start Project',
     },
@@ -267,6 +282,12 @@ const translations: Record<Language, Translations> = {
       line2: 'IS TOO',
       line3: 'HARD.',
       sub: 'We take on the projects others refuse. Complexity is our playground.',
+    },
+    portfolio: {
+      tag: '// OUR WORK',
+      title: 'Projects that speak.',
+      sub: 'Every project is proof that nothing is too hard.',
+      visitLabel: 'Visit website',
     },
     contact: {
       tag: '// READY TO BUILD?',

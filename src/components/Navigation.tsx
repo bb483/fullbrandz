@@ -19,6 +19,7 @@ export default function Navigation() {
     { label: t.nav.services, href: '#services' },
     { label: t.nav.journey, href: '#journey' },
     { label: t.nav.process, href: '#process' },
+    { label: t.nav.portfolio, href: '#portfolio' },
     { label: t.nav.contact, href: '#contact' },
   ];
 

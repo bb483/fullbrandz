@@ -11,6 +11,7 @@ const WhatWeDo = dynamic(() => import('@/components/sections/WhatWeDo'), { ssr: 
 const ScrollJourney = dynamic(() => import('@/components/sections/ScrollJourney'), { ssr: false });
 const Process = dynamic(() => import('@/components/sections/Process'), { ssr: false });
 const Statement = dynamic(() => import('@/components/sections/Statement'), { ssr: false });
+const Portfolio = dynamic(() => import('@/components/sections/Portfolio'), { ssr: false });
 const Contact = dynamic(() => import('@/components/sections/Contact'), { ssr: false });
 
 // Custom cursor (desktop only)
@@ -34,6 +35,7 @@ export default function HomePage() {
           <ScrollJourney />
           <Process />
           <Statement />
+          <Portfolio />
           <Contact />
         </main>
 

@@ -1,0 +1,175 @@
+'use client';
+
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { useLanguage } from '@/contexts/LanguageContext';
+
+const projects = [
+  {
+    name: 'Vrooem',
+    url: 'https://vrooem.com',
+    displayUrl: 'vrooem.com',
+    description: 'Een volledig digitaal platform voor autoliefhebbers. Van community tot marketplace — gebouwd voor snelheid en schaal.',
+    tags: ['Platform', 'Next.js', 'AI', 'Marketplace'],
+    year: '2024',
+    color: '#0077CC',
+  },
+];
+
+export default function Portfolio() {
+  const { t } = useLanguage();
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
+
+  return (
+    <section
+      ref={sectionRef}
+      id="portfolio"
+      className="relative section-padding"
+      style={{ background: '#F8FAFC' }}
+    >
+      <div className="absolute inset-0 grid-overlay opacity-20" />
+
+      <div className="relative z-10 max-w-7xl mx-auto">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="mb-16"
+        >
+          <div className="font-mono text-xs tracking-[0.4em] text-cyan mb-4 opacity-70">
+            {t.portfolio.tag}
+          </div>
+          <h2 className="font-mono font-black text-4xl sm:text-5xl lg:text-6xl text-[#0A0A1A] mb-4">
+            {t.portfolio.title}
+          </h2>
+          <p className="font-sans text-[#1E1B4B] text-base max-w-md">
+            {t.portfolio.sub}
+          </p>
+        </motion.div>
+
+        {/* Projects */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {projects.map((project, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 40 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: i * 0.15 }}
+              className="group glass-card overflow-hidden"
+            >
+              {/* Browser mockup preview */}
+              <div
+                className="relative w-full overflow-hidden"
+                style={{ height: '280px', background: '#0A0A1A' }}
+              >
+                {/* Browser chrome */}
+                <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10">
+                  <div className="w-3 h-3 rounded-full bg-red-500/60" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
+                  <div className="w-3 h-3 rounded-full bg-green-500/60" />
+                  <div
+                    className="ml-3 flex-1 max-w-[200px] rounded px-3 py-1 font-mono text-xs"
+                    style={{ background: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.5)' }}
+                  >
+                    {project.displayUrl}
+                  </div>
+                </div>
+
+                {/* iframe preview */}
+                <iframe
+                  src={project.url}
+                  className="w-full border-0 pointer-events-none"
+                  style={{
+                    height: '600px',
+                    transform: 'scale(0.5)',
+                    transformOrigin: 'top left',
+                    width: '200%',
+                  }}
+                  loading="lazy"
+                  title={project.name}
+                />
+
+                {/* Gradient overlay */}
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background: 'linear-gradient(to bottom, transparent 60%, rgba(10,10,26,0.8) 100%)',
+                  }}
+                />
+
+                {/* Year badge */}
+                <div
+                  className="absolute top-14 right-4 font-mono text-xs px-2 py-1 rounded"
+                  style={{ background: 'rgba(0,119,204,0.3)', color: '#0077CC', border: '1px solid rgba(0,119,204,0.3)' }}
+                >
+                  {project.year}
+                </div>
+              </div>
+
+              {/* Project info */}
+              <div className="p-6">
+                <div className="flex items-start justify-between mb-3">
+                  <h3 className="font-mono font-black text-2xl text-[#0A0A1A]">
+                    {project.name}
+                  </h3>
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono text-xs tracking-widest px-4 py-2 rounded transition-all duration-300 flex items-center gap-2 shrink-0"
+                    style={{
+                      background: 'linear-gradient(135deg, #0077CC, #7C10CC)',
+                      color: '#F8FAFC',
+                    }}
+                  >
+                    {t.portfolio.visitLabel} →
+                  </a>
+                </div>
+
+                <p className="font-sans text-[#1E1B4B] text-sm leading-relaxed mb-4">
+                  {project.description}
+                </p>
+
+                <div className="flex flex-wrap gap-2">
+                  {project.tags.map((tag, j) => (
+                    <span
+                      key={j}
+                      className="font-mono text-[10px] tracking-widest px-2.5 py-1 rounded"
+                      style={{
+                        background: 'rgba(0,119,204,0.08)',
+                        color: '#0077CC',
+                        border: '1px solid rgba(0,119,204,0.15)',
+                      }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+
+          {/* Coming soon card */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="glass-card p-8 flex flex-col items-center justify-center text-center min-h-[400px]"
+            style={{ border: '1px dashed rgba(0,119,204,0.2)' }}
+          >
+            <div
+              className="w-12 h-12 rounded-full flex items-center justify-center mb-6"
+              style={{ background: 'rgba(0,119,204,0.08)', border: '1px solid rgba(0,119,204,0.2)' }}
+            >
+              <span className="text-cyan text-xl font-mono font-bold">+</span>
+            </div>
+            <p className="font-mono text-xs tracking-[0.3em] text-cyan opacity-60 mb-2">BINNENKORT</p>
+            <p className="font-sans text-[#1E1B4B] text-sm">Volgend project komt eraan.</p>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
