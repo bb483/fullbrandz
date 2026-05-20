@@ -69,10 +69,10 @@ export default function ScrollJourney() {
               transition={{ duration: 0.6 }}
               className="mb-10"
             >
-              <div className="font-mono text-xs tracking-[0.4em] mb-3" style={{ color: '#FFE600' }}>
+              <div className="font-mono text-xs tracking-[0.4em] mb-3" style={{ color: '#0A0A1A' }}>
                 {t.journey.tag}
               </div>
-              <h2 className="font-mono font-black text-3xl mb-4" style={{ color: '#FFE600' }}>
+              <h2 className="font-mono font-black text-3xl mb-4" style={{ color: '#0A0A1A' }}>
                 {t.journey.title}
               </h2>
               <p className="font-sans text-[#0A0A1A] text-sm leading-relaxed max-w-sm">
@@ -136,10 +136,10 @@ export default function ScrollJourney() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
           >
-            <div className="font-mono text-xs tracking-[0.4em] mb-3" style={{ color: '#FFE600' }}>
+            <div className="font-mono text-xs tracking-[0.4em] mb-3" style={{ color: '#0A0A1A' }}>
               {t.journey.tag}
             </div>
-            <h2 className="font-mono font-black text-4xl md:text-5xl" style={{ color: '#FFE600' }}>
+            <h2 className="font-mono font-black text-4xl md:text-5xl" style={{ color: '#0A0A1A' }}>
               {t.journey.title}
             </h2>
           </motion.div>
