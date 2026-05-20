@@ -138,7 +138,8 @@ export default function Statement() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: reduced ? 0 : 0.6 }}
-          className="font-sans text-[#0A0A1A] text-base sm:text-lg max-w-lg mx-auto leading-relaxed mb-12"
+          className="font-sans text-base sm:text-lg max-w-lg mx-auto leading-relaxed mb-12"
+          style={{ color: '#0077CC' }}
         >
           {t.statement.sub}
         </motion.p>
