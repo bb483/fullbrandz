@@ -9,10 +9,19 @@ const projects = [
     name: 'Vrooem',
     url: 'https://vrooem.com',
     displayUrl: 'vrooem.com',
-    description: 'Een volledig digitaal platform voor autoliefhebbers. Van community tot marketplace — gebouwd voor snelheid en schaal.',
+    description: 'Een wereldwijd autoverhuurplatform — gebouwd voor snelheid, schaal en een naadloze gebruikerservaring wereldwijd.',
     tags: ['Platform', 'Next.js', 'AI', 'Marketplace'],
     year: '2024',
     color: '#0077CC',
+  },
+  {
+    name: 'GaragePoint',
+    url: 'https://www.garagepoint.be',
+    displayUrl: 'garagepoint.be',
+    description: 'Een digitaal platform dat automobilisten verbindt met erkende garages in de buurt. Slim, snel en betrouwbaar.',
+    tags: ['Platform', 'Automotive', 'Marketplace', 'België'],
+    year: '2024',
+    color: '#7C10CC',
   },
 ];
 
@@ -151,23 +160,6 @@ export default function Portfolio() {
             </motion.div>
           ))}
 
-          {/* Coming soon card */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="glass-card p-8 flex flex-col items-center justify-center text-center min-h-[400px]"
-            style={{ border: '1px dashed rgba(0,119,204,0.2)' }}
-          >
-            <div
-              className="w-12 h-12 rounded-full flex items-center justify-center mb-6"
-              style={{ background: 'rgba(0,119,204,0.08)', border: '1px solid rgba(0,119,204,0.2)' }}
-            >
-              <span className="text-cyan text-xl font-mono font-bold">+</span>
-            </div>
-            <p className="font-mono text-xs tracking-[0.3em] text-cyan opacity-60 mb-2">BINNENKORT</p>
-            <p className="font-sans text-[#1E1B4B] text-sm">Volgend project komt eraan.</p>
-          </motion.div>
         </div>
       </div>
     </section>
