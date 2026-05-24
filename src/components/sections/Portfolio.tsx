@@ -86,18 +86,13 @@ export default function Portfolio() {
                   </div>
                 </div>
 
-                {/* iframe preview */}
-                <iframe
-                  src={project.url}
-                  className="w-full border-0 pointer-events-none"
-                  style={{
-                    height: '600px',
-                    transform: 'scale(0.5)',
-                    transformOrigin: 'top left',
-                    width: '200%',
-                  }}
+                {/* Screenshot preview */}
+                <img
+                  src={`https://api.microlink.io?url=${encodeURIComponent(project.url)}&screenshot=true&meta=false&embed=screenshot.url&colorScheme=light`}
+                  alt={project.name}
+                  className="w-full h-full object-cover object-top"
+                  style={{ position: 'absolute', top: '42px', left: 0, right: 0, bottom: 0, height: 'calc(100% - 42px)' }}
                   loading="lazy"
-                  title={project.name}
                 />
 
                 {/* Gradient overlay */}
