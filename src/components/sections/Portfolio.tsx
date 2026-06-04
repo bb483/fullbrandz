@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const projects = [
@@ -34,27 +34,13 @@ const projects = [
   },
 ];
 
-function ProjectCard({ project, index, isInView, visitLabel }: {
-  project: typeof projects[0];
-  index: number;
-  isInView: boolean;
-  visitLabel: string;
-}) {
+function ProjectCard({ project, visitLabel }: { project: typeof projects[0]; visitLabel: string }) {
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: index * 0.15 }}
-      className="group glass-card overflow-hidden"
-    >
-      {/* Browser mockup preview */}
-      <div
-        className="relative w-full overflow-hidden"
-        style={{ height: '280px', background: '#0A0A1A' }}
-      >
-        {/* Browser chrome */}
+    <div className="glass-card overflow-hidden w-full">
+      {/* Browser mockup */}
+      <div className="relative w-full overflow-hidden" style={{ height: '340px', background: '#0A0A1A' }}>
         <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10" style={{ height: '42px' }}>
           <div className="w-3 h-3 rounded-full bg-red-500/60" />
           <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
@@ -67,13 +53,17 @@ function ProjectCard({ project, index, isInView, visitLabel }: {
           </div>
         </div>
 
-        {/* Skeleton shimmer — shown until image loads */}
         {!loaded && (
           <div
             className="absolute left-0 right-0 bottom-0"
-            style={{ top: '42px', background: 'linear-gradient(110deg, #1a1a2e 30%, #2a2a4e 50%, #1a1a2e 70%)', backgroundSize: '200% 100%', animation: 'shimmer 1.4s infinite' }}
+            style={{
+              top: '42px',
+              background: 'linear-gradient(110deg, #1a1a2e 30%, #2a2a4e 50%, #1a1a2e 70%)',
+              backgroundSize: '200% 100%',
+              animation: 'shimmer 1.4s infinite',
+            }}
           >
-            <div className="p-4 flex flex-col gap-3 mt-4">
+            <div className="p-6 flex flex-col gap-3 mt-4">
               <div className="h-3 rounded" style={{ background: 'rgba(255,255,255,0.06)', width: '60%' }} />
               <div className="h-3 rounded" style={{ background: 'rgba(255,255,255,0.04)', width: '80%' }} />
               <div className="h-3 rounded" style={{ background: 'rgba(255,255,255,0.04)', width: '45%' }} />
@@ -81,7 +71,6 @@ function ProjectCard({ project, index, isInView, visitLabel }: {
           </div>
         )}
 
-        {/* Screenshot */}
         <img
           src={`https://api.microlink.io?url=${encodeURIComponent(project.url)}&screenshot=true&meta=false&embed=screenshot.url&colorScheme=light`}
           alt={project.name}
@@ -90,8 +79,6 @@ function ProjectCard({ project, index, isInView, visitLabel }: {
             position: 'absolute',
             top: '42px',
             left: 0,
-            right: 0,
-            bottom: 0,
             width: '100%',
             height: 'calc(100% - 42px)',
             objectFit: 'cover',
@@ -101,13 +88,11 @@ function ProjectCard({ project, index, isInView, visitLabel }: {
           }}
         />
 
-        {/* Gradient overlay */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{ top: '42px', background: 'linear-gradient(to bottom, transparent 60%, rgba(10,10,26,0.5) 100%)' }}
         />
 
-        {/* Year badge */}
         <div
           className="absolute top-14 right-4 font-mono text-xs px-2 py-1 rounded"
           style={{ background: 'rgba(0,119,204,0.3)', color: '#0077CC', border: '1px solid rgba(0,119,204,0.3)' }}
@@ -116,27 +101,21 @@ function ProjectCard({ project, index, isInView, visitLabel }: {
         </div>
       </div>
 
-      {/* Project info */}
+      {/* Info */}
       <div className="p-6">
         <div className="flex items-start justify-between mb-3">
-          <h3 className="font-mono font-black text-2xl text-[#0A0A1A]">
-            {project.name}
-          </h3>
+          <h3 className="font-mono font-black text-2xl text-[#0A0A1A]">{project.name}</h3>
           <a
             href={project.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-mono text-xs tracking-widest px-4 py-2 rounded transition-all duration-300 flex items-center gap-2 shrink-0"
+            className="font-mono text-xs tracking-widest px-4 py-2 rounded shrink-0"
             style={{ background: 'linear-gradient(135deg, #0077CC, #7C10CC)', color: '#F8FAFC' }}
           >
             {visitLabel} →
           </a>
         </div>
-
-        <p className="font-sans text-[#1E1B4B] text-sm leading-relaxed mb-4">
-          {project.description}
-        </p>
-
+        <p className="font-sans text-[#1E1B4B] text-sm leading-relaxed mb-4">{project.description}</p>
         <div className="flex flex-wrap gap-2">
           {project.tags.map((tag, j) => (
             <span
@@ -149,7 +128,7 @@ function ProjectCard({ project, index, isInView, visitLabel }: {
           ))}
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -157,6 +136,19 @@ export default function Portfolio() {
   const { t } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
+  const [current, setCurrent] = useState(0);
+  const [direction, setDirection] = useState(0);
+
+  const go = (dir: number) => {
+    setDirection(dir);
+    setCurrent((prev) => (prev + dir + projects.length) % projects.length);
+  };
+
+  const variants = {
+    enter: (dir: number) => ({ x: dir > 0 ? 80 : -80, opacity: 0 }),
+    center: { x: 0, opacity: 1 },
+    exit: (dir: number) => ({ x: dir > 0 ? -80 : 80, opacity: 0 }),
+  };
 
   return (
     <section
@@ -167,32 +159,94 @@ export default function Portfolio() {
     >
       <div className="absolute inset-0 grid-overlay opacity-20" />
 
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="relative z-10 max-w-5xl mx-auto">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="mb-16"
+          className="mb-12"
         >
           <div className="font-mono text-xs tracking-[0.4em] text-cyan mb-4 opacity-70">
             {t.portfolio.tag}
           </div>
-          <h2 className="font-mono font-black text-4xl sm:text-5xl lg:text-6xl text-[#0A0A1A] mb-4">
-            {t.portfolio.title}
-          </h2>
-          <p className="font-sans text-[#1E1B4B] text-base max-w-md">
-            {t.portfolio.sub}
-          </p>
+          <div className="flex items-end justify-between">
+            <div>
+              <h2 className="font-mono font-black text-4xl sm:text-5xl lg:text-6xl text-[#0A0A1A] mb-2">
+                {t.portfolio.title}
+              </h2>
+              <p className="font-sans text-[#1E1B4B] text-base">{t.portfolio.sub}</p>
+            </div>
+
+            {/* Arrow controls */}
+            <div className="flex items-center gap-3 shrink-0 ml-8">
+              <button
+                onClick={() => go(-1)}
+                className="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                style={{
+                  border: '1px solid rgba(0,119,204,0.3)',
+                  background: 'rgba(0,119,204,0.06)',
+                  color: '#0077CC',
+                }}
+              >
+                ←
+              </button>
+              <span className="font-mono text-xs text-[#1E1B4B] opacity-50">
+                {current + 1} / {projects.length}
+              </span>
+              <button
+                onClick={() => go(1)}
+                className="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                style={{
+                  background: 'linear-gradient(135deg, #0077CC, #7C10CC)',
+                  color: '#F8FAFC',
+                }}
+              >
+                →
+              </button>
+            </div>
+          </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {projects.map((project, i) => (
-            <ProjectCard
+        {/* Slider */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="relative overflow-hidden"
+        >
+          <AnimatePresence custom={direction} mode="wait">
+            <motion.div
+              key={current}
+              custom={direction}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+              <ProjectCard
+                project={projects[current]}
+                visitLabel={t.portfolio.visitLabel}
+              />
+            </motion.div>
+          </AnimatePresence>
+        </motion.div>
+
+        {/* Dot indicators */}
+        <div className="flex justify-center gap-2 mt-6">
+          {projects.map((_, i) => (
+            <button
               key={i}
-              project={project}
-              index={i}
-              isInView={isInView}
-              visitLabel={t.portfolio.visitLabel}
+              onClick={() => { setDirection(i > current ? 1 : -1); setCurrent(i); }}
+              className="transition-all duration-300 rounded-full"
+              style={{
+                width: i === current ? '24px' : '8px',
+                height: '8px',
+                background: i === current
+                  ? 'linear-gradient(90deg, #0077CC, #7C10CC)'
+                  : 'rgba(0,119,204,0.2)',
+              }}
             />
           ))}
         </div>
