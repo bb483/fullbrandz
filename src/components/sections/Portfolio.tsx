@@ -23,6 +23,15 @@ const projects = [
     year: '2024',
     color: '#7C10CC',
   },
+  {
+    name: 'Possup',
+    url: 'https://possup.be',
+    displayUrl: 'possup.be',
+    description: 'Een professioneel digitaal platform gebouwd voor impact en schaalbaarheid.',
+    tags: ['Platform', 'Web', 'België'],
+    year: '2024',
+    color: '#0077CC',
+  },
 ];
 
 function ProjectCard({ project, index, isInView, visitLabel }: {
