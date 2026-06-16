@@ -1,6 +1,6 @@
 ﻿'use client';
 
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Sphere, MeshDistortMaterial } from '@react-three/drei';
 import * as THREE from 'three';
@@ -9,13 +9,28 @@ import { Suspense } from 'react';
 function InnerShape() {
   const meshRef = useRef<THREE.Mesh>(null);
   const groupRef = useRef<THREE.Group>(null);
+  const scrollBoost = useRef(0); // lerped scroll velocity boost
 
   const geometry = useMemo(() => new THREE.IcosahedronGeometry(1.4, 1), []);
+
+  useEffect(() => {
+    let lastScroll = window.scrollY;
+    const onScroll = () => {
+      const delta = window.scrollY - lastScroll;
+      lastScroll = window.scrollY;
+      // Add a small velocity boost based on scroll speed
+      scrollBoost.current += delta * 0.003;
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   useFrame((state) => {
     if (!meshRef.current || !groupRef.current) return;
     const t = state.clock.getElapsedTime();
-    groupRef.current.rotation.y = t * 0.15;
+    // Decay the scroll boost each frame
+    scrollBoost.current *= 0.9;
+    groupRef.current.rotation.y += 0.003 + scrollBoost.current;
     groupRef.current.rotation.x = Math.sin(t * 0.1) * 0.2;
     const scalePulse = 1 + Math.sin(t * 0.8) * 0.04;
     meshRef.current.scale.setScalar(scalePulse);
