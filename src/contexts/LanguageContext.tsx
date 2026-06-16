@@ -96,8 +96,8 @@ const translations: Record<Language, Translations> = {
     },
     hero: {
       tag: '// EST. 2024 — DIGITALE ARCHITECTEN',
-      headline1: 'WE BOUWEN WAT',
-      headline2: 'ANDEREN NIET KUNNEN.',
+      headline1: 'WE BOUWEN',
+      headline2: 'ALLES.',
       sub: 'Digitale platformen. Intelligente systemen. AI automatisering. Wij maken het werkelijkheid — hoe complex ook.',
       cta1: 'Start je project',
       cta2: 'Bekijk ons werk',
@@ -207,8 +207,8 @@ const translations: Record<Language, Translations> = {
     },
     hero: {
       tag: '// EST. 2024 — DIGITAL ARCHITECTS',
-      headline1: 'WE BUILD WHAT',
-      headline2: "OTHERS CAN'T.",
+      headline1: 'WE BUILD',
+      headline2: 'EVERYTHING.',
       sub: 'Digital platforms. Intelligent systems. AI automation. We make it real — no matter how complex.',
       cta1: 'Start your project',
       cta2: 'See our work',

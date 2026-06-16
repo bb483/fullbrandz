@@ -199,7 +199,7 @@ export default function Hero() {
         className="absolute bottom-0 left-0 right-0 border-t border-gray-100 px-8 py-5 hidden lg:flex justify-center gap-16"
       >
         {[
-          { value: '50+', label: 'Projecten' },
+          { value: '5', label: 'Projecten' },
           { value: '100%', label: 'On-time delivery' },
           { value: '∞', label: 'Complexiteit' },
         ].map((stat) => (
