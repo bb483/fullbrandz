@@ -201,8 +201,13 @@ body {
 }
 
 /* ─── Three.js canvas container ────────────────────────────── */
+.three-canvas-container {
+  will-change: transform;
+  transform: translateZ(0);
+}
 .three-canvas-container canvas {
   outline: none;
+  display: block;
 }
 
 /* ─── Reduce motion ─────────────────────────────────────────── */

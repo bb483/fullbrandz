@@ -6,28 +6,17 @@ import { OrbitControls, Sphere, MeshDistortMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 import { Suspense } from 'react';
 
-interface ShapeProps {
-  scrollProgress?: number;
-}
-
-function InnerShape({ scrollProgress = 0 }: ShapeProps) {
+function InnerShape() {
   const meshRef = useRef<THREE.Mesh>(null);
   const groupRef = useRef<THREE.Group>(null);
 
-  // Icosahedron wireframe that slowly morphs
-  const geometry = useMemo(() => {
-    return new THREE.IcosahedronGeometry(1.4, 1);
-  }, []);
+  const geometry = useMemo(() => new THREE.IcosahedronGeometry(1.4, 1), []);
 
   useFrame((state) => {
     if (!meshRef.current || !groupRef.current) return;
     const t = state.clock.getElapsedTime();
-
-    // Base continuous rotation
-    groupRef.current.rotation.y = t * 0.15 + scrollProgress * Math.PI * 2;
+    groupRef.current.rotation.y = t * 0.15;
     groupRef.current.rotation.x = Math.sin(t * 0.1) * 0.2;
-
-    // Scale pulse
     const scalePulse = 1 + Math.sin(t * 0.8) * 0.04;
     meshRef.current.scale.setScalar(scalePulse);
   });
@@ -85,21 +74,20 @@ function InnerShape({ scrollProgress = 0 }: ShapeProps) {
 }
 
 interface MorphingShapeProps {
-  scrollProgress?: number;
   className?: string;
 }
 
-export default function MorphingShape({ scrollProgress = 0, className = '' }: MorphingShapeProps) {
+export default function MorphingShape({ className = '' }: MorphingShapeProps) {
   return (
     <div className={`three-canvas-container ${className}`}>
       <Canvas
         camera={{ position: [0, 0, 4.5], fov: 50 }}
-        gl={{ antialias: true, alpha: true }}
+        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
         dpr={[1, 1.5]}
       >
         <ambientLight intensity={0.1} />
         <Suspense fallback={null}>
-          <InnerShape scrollProgress={scrollProgress} />
+          <InnerShape />
         </Suspense>
       </Canvas>
     </div>

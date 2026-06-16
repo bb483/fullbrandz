@@ -25,20 +25,24 @@ export function useLenis() {
 
       lenisRef.current = lenis;
 
+      let rafId: number;
       function raf(time: number) {
         lenis.raf(time);
-        requestAnimationFrame(raf);
+        rafId = requestAnimationFrame(raf);
       }
+      rafId = requestAnimationFrame(raf);
 
-      requestAnimationFrame(raf);
-
-      // Expose lenis globally for GSAP ScrollTrigger integration
       (window as unknown as Record<string, unknown>).__lenis = lenis;
+
+      // Store cancel fn for cleanup
+      (lenisRef as unknown as Record<string, unknown>).__cancelRaf = () => cancelAnimationFrame(rafId);
     }
 
     init();
 
     return () => {
+      const cancel = (lenisRef as unknown as Record<string, unknown>).__cancelRaf;
+      if (typeof cancel === 'function') cancel();
       lenis?.destroy();
       lenisRef.current = null;
     };

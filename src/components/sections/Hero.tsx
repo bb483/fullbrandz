@@ -1,6 +1,7 @@
 ﻿'use client';
 
 import { useEffect, useRef, useState } from 'react';
+// scrollProgress removed from state — DOM updated directly via ref for smooth perf
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -14,8 +15,8 @@ const MorphingShape = dynamic(() => import('@/components/three/MorphingShape'), 
 export default function Hero() {
   const { t } = useLanguage();
   const reduced = useReducedMotion();
-  const [scrollProgress, setScrollProgress] = useState(0);
   const heroRef = useRef<HTMLElement>(null);
+  const shapeRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' ? window.innerWidth < 768 : true);
 
   useEffect(() => {
@@ -25,17 +26,19 @@ export default function Hero() {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
+  // Direct DOM update — no React re-render on scroll
   useEffect(() => {
-    if (reduced) return;
+    if (reduced || isMobile) return;
     const onScroll = () => {
-      if (!heroRef.current) return;
+      if (!heroRef.current || !shapeRef.current) return;
       const rect = heroRef.current.getBoundingClientRect();
       const progress = Math.max(0, Math.min(1, -rect.top / rect.height));
-      setScrollProgress(progress);
+      shapeRef.current.style.transform = `translateZ(0) translateY(${progress * 120}px) scale(${1 + progress * 0.15})`;
+      shapeRef.current.style.opacity = String(Math.max(0, 1 - progress * 1.2));
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, [reduced]);
+  }, [reduced, isMobile]);
 
   return (
     <section
@@ -62,17 +65,11 @@ export default function Hero() {
       {/* 3D Shape — desktop only */}
       {!isMobile ? (
         <div
+          ref={shapeRef}
           className="absolute inset-0 pointer-events-none"
-          style={{
-            transform: `translateY(${scrollProgress * 120}px) scale(${1 + scrollProgress * 0.15})`,
-            opacity: 1 - scrollProgress * 1.2,
-            transition: reduced ? 'none' : undefined,
-          }}
+          style={{ willChange: 'transform, opacity', transform: 'translateZ(0)' }}
         >
-          <MorphingShape
-            scrollProgress={scrollProgress}
-            className="w-full h-full"
-          />
+          <MorphingShape className="w-full h-full" />
         </div>
       ) : (
         /* Mobile: static gradient orb */
@@ -106,7 +103,6 @@ export default function Hero() {
         >
           <h1
             className="font-mono font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight text-[#0A0A1A] relative"
-            style={{ transform: `translateY(${scrollProgress * -40}px)` }}
           >
             <span
               className="block glitch-text"
