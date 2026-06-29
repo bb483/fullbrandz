@@ -1,6 +1,7 @@
 ﻿'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -67,6 +68,15 @@ export default function Navigation() {
                 <span className="absolute -bottom-1 left-0 w-0 h-px bg-cyan group-hover:w-full transition-all duration-300" />
               </button>
             ))}
+
+            {/* Kennisbank — eigen route */}
+            <Link
+              href="/kennisbank"
+              className="font-mono text-xs tracking-widest text-[#1E1B4B] hover:text-cyan transition-colors duration-300 relative group"
+            >
+              {t.nav.kennisbank}
+              <span className="absolute -bottom-1 left-0 w-0 h-px bg-cyan group-hover:w-full transition-all duration-300" />
+            </Link>
 
             {/* Language toggle */}
             <button
@@ -145,6 +155,15 @@ export default function Navigation() {
                   {link.label}
                 </motion.button>
               ))}
+
+              <Link
+                href="/kennisbank"
+                onClick={() => setMenuOpen(false)}
+                className="font-mono text-sm tracking-widest text-[#0A0A1A] hover:text-cyan transition-colors text-left"
+              >
+                <span className="text-cyan mr-3">{'>'}</span>
+                {t.nav.kennisbank}
+              </Link>
 
               <div className="flex items-center gap-4 pt-4 border-t border-gray-100">
                 <button

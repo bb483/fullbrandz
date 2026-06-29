@@ -1,6 +1,7 @@
 ﻿'use client';
 
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import { useLenis } from '@/hooks/useLenis';
 
 import Navigation from '@/components/Navigation';
@@ -44,9 +45,17 @@ export default function HomePage() {
             <span className="font-mono text-xs text-[#1E1B4B] tracking-widest">
               © 2024 FULLBRANDZ — ALL RIGHTS RESERVED
             </span>
-            <span className="font-mono text-xs text-[#1E1B4B] tracking-widest">
-              NIETS IS TE MOEILIJK.
-            </span>
+            <div className="flex items-center gap-6">
+              <Link
+                href="/kennisbank"
+                className="font-mono text-xs text-[#1E1B4B] tracking-widest hover:text-cyan transition-colors"
+              >
+                KENNISBANK
+              </Link>
+              <span className="font-mono text-xs text-[#1E1B4B] tracking-widest">
+                NIETS IS TE MOEILIJK.
+              </span>
+            </div>
           </div>
         </footer>
       </div>

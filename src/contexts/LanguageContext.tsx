@@ -10,6 +10,7 @@ interface Translations {
     journey: string;
     process: string;
     portfolio: string;
+    kennisbank: string;
     contact: string;
     cta: string;
   };
@@ -83,6 +84,7 @@ const translations: Record<Language, Translations> = {
       journey: 'Journey',
       process: 'Proces',
       portfolio: 'Portfolio',
+      kennisbank: 'Kennisbank',
       contact: 'Contact',
       cta: 'Start Project',
     },
@@ -183,7 +185,7 @@ const translations: Record<Language, Translations> = {
       title: 'Laat ons praten.',
       sub: 'Vertel ons over uw project. Hoe complexer, hoe enthousiaster wij worden.',
       cta: 'Start het gesprek',
-      email: 'hello@fullbrandz.be',
+      email: 'info@fullbrandz.com',
       or: 'of mail ons direct',
       label: 'FULLBRANDZ — Niets is te moeilijk.',
     },
@@ -194,6 +196,7 @@ const translations: Record<Language, Translations> = {
       journey: 'Journey',
       process: 'Process',
       portfolio: 'Portfolio',
+      kennisbank: 'Knowledge base',
       contact: 'Contact',
       cta: 'Start Project',
     },
@@ -294,7 +297,7 @@ const translations: Record<Language, Translations> = {
       title: "Let's talk.",
       sub: 'Tell us about your project. The more complex, the more excited we get.',
       cta: 'Start the conversation',
-      email: 'hello@fullbrandz.be',
+      email: 'info@fullbrandz.com',
       or: 'or email us directly',
       label: 'FULLBRANDZ — Nothing is too hard.',
     },
