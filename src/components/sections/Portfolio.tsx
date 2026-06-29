@@ -32,6 +32,15 @@ const projects = [
     year: '2024',
     color: '#0077CC',
   },
+  {
+    name: 'eSIMzu',
+    url: 'https://esimzu.com',
+    displayUrl: 'esimzu.com',
+    description: 'Een eSIM-platform dat reizigers wereldwijd in seconden verbindt met mobiele data — zonder fysieke simkaart. Direct activeren, overal online.',
+    tags: ['Platform', 'eSIM', 'Travel', 'E-commerce'],
+    year: '2024',
+    color: '#7C10CC',
+  },
 ];
 
 function ProjectCard({ project, visitLabel }: { project: typeof projects[0]; visitLabel: string }) {
