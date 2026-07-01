@@ -177,17 +177,18 @@ export default function ArticlePage({ params }: Props) {
           <ArticleContent blocks={article.content} />
 
           {/* CTA */}
-          <div className="glass-card mt-14 p-8 text-center">
+          <div className="glass-card mt-14 p-6 sm:p-8 text-center">
             <p className="font-sans text-[#1E1B4B] text-base sm:text-lg leading-relaxed mb-6">
               Vragen over jouw project? FULLBRANDZ bouwt websites, platformen en AI-automatisering op maat.
             </p>
             <a
               href={`mailto:${SITE.email}`}
-              className="inline-block font-mono font-bold text-sm tracking-widest px-9 py-4 rounded-xl text-[#F8FAFC]"
+              className="inline-flex max-w-full items-center justify-center gap-2 font-mono font-bold text-xs sm:text-sm tracking-widest px-6 sm:px-9 py-4 rounded-xl text-[#F8FAFC] break-all"
               style={{ background: 'linear-gradient(135deg, #0077CC, #7C10CC)' }}
             >
-              MAIL ONS — {SITE.email.toUpperCase()}
+              MAIL ONS →
             </a>
+            <div className="mt-4 font-mono text-xs text-cyan break-all">{SITE.email}</div>
           </div>
         </article>
 

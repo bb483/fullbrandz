@@ -22,6 +22,7 @@
 
 html {
   scroll-behavior: auto;
+  overflow-x: hidden;
 }
 
 body {
@@ -29,7 +30,30 @@ body {
   color: #0A0A1A;
   font-family: 'Space Grotesk', sans-serif;
   overflow-x: hidden;
-  cursor: none;
+  max-width: 100%;
+  /* Voorkom dat lange woorden/URL's (bv. e-mailadressen) de layout oprekken */
+  overflow-wrap: break-word;
+}
+
+/* Custom cursor alleen op apparaten met een fijne aanwijzer (desktop) */
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: none;
+  }
+}
+
+/* Bij reduced motion is de custom cursor uitgeschakeld → toon weer een cursor */
+@media (prefers-reduced-motion: reduce) {
+  body {
+    cursor: auto;
+  }
+}
+
+/* Media schaalt nooit buiten zijn container (geen horizontale scroll) */
+img,
+video {
+  max-width: 100%;
+  height: auto;
 }
 
 /* Custom scrollbar */
@@ -135,7 +159,13 @@ body {
 
 /* ─── Section base ──────────────────────────────────────────── */
 .section-padding {
-  padding: 8rem 2rem;
+  padding: 5rem 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .section-padding {
+    padding: 7rem 2rem;
+  }
 }
 
 @media (min-width: 1024px) {

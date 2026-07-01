@@ -112,7 +112,7 @@ export default function Statement() {
                 }}
               >
                 <span
-                  className="block font-mono font-black text-[clamp(4rem,15vw,12rem)] leading-[0.9] tracking-tight"
+                  className="block font-mono font-black text-[clamp(2.75rem,13vw,12rem)] leading-[0.9] tracking-tight break-words"
                   style={{
                     background: wi === 2
                       ? 'linear-gradient(135deg, #0077CC, #7C10CC)'

@@ -179,7 +179,7 @@ export default function Portfolio() {
           <div className="font-mono text-xs tracking-[0.4em] text-cyan mb-4 opacity-70">
             {t.portfolio.tag}
           </div>
-          <div className="flex items-end justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
             <div>
               <h2 className="font-mono font-black text-4xl sm:text-5xl lg:text-6xl text-[#0A0A1A] mb-2">
                 {t.portfolio.title}
@@ -188,7 +188,7 @@ export default function Portfolio() {
             </div>
 
             {/* Arrow controls */}
-            <div className="flex items-center gap-3 shrink-0 ml-8">
+            <div className="flex items-center gap-3 shrink-0">
               <button
                 onClick={() => go(-1)}
                 className="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"

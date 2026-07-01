@@ -1,8 +1,17 @@
-﻿import type { Metadata } from 'next';
+﻿import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import { SITE } from '@/lib/site';
 import JsonLd from '@/components/kennisbank/JsonLd';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: 'cover',
+  themeColor: '#F8FAFC',
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
