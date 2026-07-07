@@ -22,14 +22,17 @@
 
 html {
   scroll-behavior: auto;
-  overflow-x: hidden;
+  /* 'clip' blokkeert horizontale scroll ZONDER een scroll-container te maken,
+     zodat position:sticky (ScrollJourney) blijft werken. 'hidden' zou sticky breken. */
+  overflow-x: clip;
 }
 
 body {
   background-color: var(--bg);
   color: #0A0A1A;
   font-family: 'Space Grotesk', sans-serif;
-  overflow-x: hidden;
+  overflow-x: hidden; /* fallback voor oudere browsers zonder clip-support */
+  overflow-x: clip;
   max-width: 100%;
   /* Voorkom dat lange woorden/URL's (bv. e-mailadressen) de layout oprekken */
   overflow-wrap: break-word;
