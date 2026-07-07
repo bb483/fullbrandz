@@ -1,7 +1,7 @@
 ﻿'use client';
 
 import { useRef, useEffect, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
@@ -20,6 +20,32 @@ const JourneyScene = dynamic(() => import('@/components/three/JourneyScene'), {
   ),
 });
 
+// Eigen inview-trigger met native IntersectionObserver. Framer's useInView
+// blijft bij het wisselen tussen de mobiele/desktop-tak naar het oude,
+// verwijderde DOM-element kijken waardoor de sectie onzichtbaar blijft;
+// deze hook her-observeert wanneer de tak wisselt en latcht bij eerste view.
+function useInViewOnce(rearmKey: unknown) {
+  const ref = useRef<HTMLElement | null>(null);
+  const [seen, setSeen] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || seen) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setSeen(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: '-40px 0px' }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rearmKey, seen]);
+  return { ref, seen };
+}
+
 export default function ScrollJourney() {
   const { t } = useLanguage();
   const reduced = useReducedMotion();
@@ -28,8 +54,7 @@ export default function ScrollJourney() {
   const [progress, setProgress] = useState(0);
   const [activeStep, setActiveStep] = useState(0);
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' ? window.innerWidth < 768 : true);
-  const titleRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(titleRef, { once: true, margin: '-100px' });
+  const { ref: inViewRef, seen: isInView } = useInViewOnce(isMobile);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -58,28 +83,31 @@ export default function ScrollJourney() {
   // ─── Mobile layout — clean flow, no absolute positioning ───────────────────
   if (isMobile) {
     return (
-      <section id="journey" className="relative section-padding" style={{ background: '#F8FAFC' }}>
+      <section
+        id="journey"
+        ref={inViewRef as React.RefObject<HTMLElement>}
+        className="relative section-padding"
+        style={{ background: '#F8FAFC' }}
+      >
         <div className="absolute inset-0 grid-overlay opacity-25" />
         <div className="relative z-10 max-w-7xl mx-auto">
           {/* Header */}
-          <div ref={titleRef}>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6 }}
-              className="mb-10"
-            >
-              <div className="font-mono text-xs tracking-[0.4em] mb-3" style={{ color: '#0A0A1A' }}>
-                {t.journey.tag}
-              </div>
-              <h2 className="font-mono font-black text-3xl mb-4" style={{ color: '#0A0A1A' }}>
-                {t.journey.title}
-              </h2>
-              <p className="font-sans text-[#0A0A1A] text-sm leading-relaxed max-w-sm">
-                {t.journey.sub}
-              </p>
-            </motion.div>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="mb-10"
+          >
+            <div className="font-mono text-xs tracking-[0.4em] mb-3" style={{ color: '#0A0A1A' }}>
+              {t.journey.tag}
+            </div>
+            <h2 className="font-mono font-black text-3xl mb-4" style={{ color: '#0A0A1A' }}>
+              {t.journey.title}
+            </h2>
+            <p className="font-sans text-[#0A0A1A] text-sm leading-relaxed max-w-sm">
+              {t.journey.sub}
+            </p>
+          </motion.div>
 
           {/* Decorative gradient divider */}
           <div
@@ -88,7 +116,7 @@ export default function ScrollJourney() {
           />
 
           {/* Steps grid */}
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-2 gap-4">
             {t.journey.steps.map((step, i) => (
               <motion.div
                 key={i}
@@ -128,7 +156,7 @@ export default function ScrollJourney() {
 
         {/* Header */}
         <div
-          ref={titleRef}
+          ref={inViewRef as React.RefObject<HTMLDivElement>}
           className="absolute top-0 left-0 right-0 z-10 px-8 lg:px-16 pt-16 pb-8"
         >
           <motion.div

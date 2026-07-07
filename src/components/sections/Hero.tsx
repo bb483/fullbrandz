@@ -142,7 +142,7 @@ export default function Hero() {
           {/* Primary CTA */}
           <button
             onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-            className="group relative font-mono text-sm tracking-widest px-8 py-4 rounded-lg overflow-hidden font-bold text-[#F8FAFC] min-w-[200px]"
+            className="group relative font-mono text-sm tracking-widest px-8 py-4 rounded-lg overflow-hidden font-bold text-[#F8FAFC] w-full max-w-xs sm:w-auto sm:min-w-[200px]"
             data-cursor="hover"
             style={{ background: 'linear-gradient(135deg, #0077CC, #7C10CC)' }}
           >
@@ -156,7 +156,7 @@ export default function Hero() {
           {/* Secondary CTA */}
           <button
             onClick={() => document.querySelector('#services')?.scrollIntoView({ behavior: 'smooth' })}
-            className="font-mono text-sm tracking-widest px-8 py-4 rounded-lg border border-gray-300 hover:border-cyan/50 text-[#0A0A1A] hover:text-[#0A0A1A] transition-all duration-300 min-w-[200px]"
+            className="font-mono text-sm tracking-widest px-8 py-4 rounded-lg border border-gray-300 hover:border-cyan/50 text-[#0A0A1A] hover:text-[#0A0A1A] transition-all duration-300 w-full max-w-xs sm:w-auto sm:min-w-[200px]"
             data-cursor="hover"
           >
             {t.hero.cta2}
@@ -191,21 +191,21 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Stats bar */}
+      {/* Stats bar — compact op mobiel, ruim op desktop */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.9 }}
-        className="absolute bottom-0 left-0 right-0 border-t border-gray-100 px-8 py-5 hidden lg:flex justify-center gap-16"
+        className="absolute bottom-0 left-0 right-0 border-t border-gray-100 px-4 py-4 sm:py-5 flex justify-center gap-8 sm:gap-12 lg:gap-16"
       >
         {[
           { value: '5', label: 'Projecten' },
-          { value: '100%', label: 'On-time delivery' },
+          { value: '100%', label: 'On-time' },
           { value: '∞', label: 'Complexiteit' },
         ].map((stat) => (
           <div key={stat.value} className="text-center">
-            <div className="font-mono text-2xl font-bold gradient-text">{stat.value}</div>
-            <div className="font-mono text-xs text-[#1E1B4B] tracking-widest mt-1">{stat.label}</div>
+            <div className="font-mono text-lg sm:text-2xl font-bold gradient-text">{stat.value}</div>
+            <div className="font-mono text-[9px] sm:text-xs text-[#1E1B4B] tracking-widest mt-0.5 sm:mt-1 uppercase">{stat.label}</div>
           </div>
         ))}
       </motion.div>

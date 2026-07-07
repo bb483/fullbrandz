@@ -74,7 +74,7 @@ export default function WhatWeDo() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="mb-20"
+          className="mb-12 md:mb-20"
         >
           <div className="font-mono text-xs tracking-[0.4em] text-cyan mb-4 opacity-70">
             {t.services.tag}

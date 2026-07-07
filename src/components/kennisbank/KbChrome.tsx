@@ -14,7 +14,7 @@ export function KbHeader() {
         borderBottom: '1px solid rgba(0,119,204,0.1)',
       }}
     >
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 py-4 flex items-center justify-between gap-3">
+      <div className="max-w-7xl mx-auto safe-x py-4 flex items-center justify-between gap-3">
         <Link
           href="/"
           className="font-mono font-bold text-lg sm:text-xl tracking-[0.15em] sm:tracking-[0.2em] text-[#0A0A1A] hover:text-cyan transition-colors duration-300 shrink-0"

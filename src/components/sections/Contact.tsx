@@ -103,7 +103,7 @@ export default function Contact() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex flex-col sm:flex-row gap-6 items-start sm:items-center"
+              className="flex flex-col sm:flex-row gap-6 items-stretch sm:items-center"
             >
               <motion.button
                 ref={btnRef}
@@ -115,7 +115,7 @@ export default function Contact() {
                 }}
                 transition={{ type: 'spring', stiffness: 150, damping: 15 }}
                 onClick={() => window.open(`mailto:${t.contact.email}`, '_blank')}
-                className="group relative font-mono font-bold text-sm tracking-widest px-10 py-5 rounded-xl overflow-hidden text-[#F8FAFC]"
+                className="group relative font-mono font-bold text-sm tracking-widest px-10 py-5 rounded-xl overflow-hidden text-[#F8FAFC] w-full sm:w-auto"
                 data-cursor="hover"
                 style={{ background: 'linear-gradient(135deg, #0077CC, #7C10CC)' }}
               >
@@ -136,7 +136,7 @@ export default function Contact() {
                 </div>
                 <a
                   href={`mailto:${t.contact.email}`}
-                  className="font-mono text-sm text-cyan hover:text-[#0A0A1A] transition-colors duration-300 border-b border-cyan/30 hover:border-cyan pb-px"
+                  className="inline-block font-mono text-sm text-cyan hover:text-[#0A0A1A] transition-colors duration-300 border-b border-cyan/30 hover:border-cyan py-2"
                   data-cursor="hover"
                 >
                   {t.contact.email}

@@ -49,7 +49,7 @@ function ProjectCard({ project, visitLabel }: { project: typeof projects[0]; vis
   return (
     <div className="glass-card overflow-hidden w-full">
       {/* Browser mockup */}
-      <div className="relative w-full overflow-hidden" style={{ height: '340px', background: '#0A0A1A' }}>
+      <div className="relative w-full overflow-hidden h-[260px] sm:h-[340px]" style={{ background: '#0A0A1A' }}>
         <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10" style={{ height: '42px' }}>
           <div className="w-3 h-3 rounded-full bg-red-500/60" />
           <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
@@ -118,7 +118,7 @@ function ProjectCard({ project, visitLabel }: { project: typeof projects[0]; vis
             href={project.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-mono text-xs tracking-widest px-4 py-2 rounded shrink-0"
+            className="font-mono text-xs tracking-widest px-4 py-2.5 rounded shrink-0"
             style={{ background: 'linear-gradient(135deg, #0077CC, #7C10CC)', color: '#F8FAFC' }}
           >
             {visitLabel} →
@@ -191,6 +191,7 @@ export default function Portfolio() {
             <div className="flex items-center gap-3 shrink-0">
               <button
                 onClick={() => go(-1)}
+                aria-label="Vorig project"
                 className="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
                 style={{
                   border: '1px solid rgba(0,119,204,0.3)',
@@ -205,6 +206,7 @@ export default function Portfolio() {
               </span>
               <button
                 onClick={() => go(1)}
+                aria-label="Volgend project"
                 className="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
                 style={{
                   background: 'linear-gradient(135deg, #0077CC, #7C10CC)',
@@ -242,21 +244,26 @@ export default function Portfolio() {
           </AnimatePresence>
         </motion.div>
 
-        {/* Dot indicators */}
-        <div className="flex justify-center gap-2 mt-6">
-          {projects.map((_, i) => (
+        {/* Dot indicators — ruim tapvlak rond elke dot */}
+        <div className="flex justify-center gap-1 mt-4">
+          {projects.map((project, i) => (
             <button
               key={i}
               onClick={() => { setDirection(i > current ? 1 : -1); setCurrent(i); }}
-              className="transition-all duration-300 rounded-full"
-              style={{
-                width: i === current ? '24px' : '8px',
-                height: '8px',
-                background: i === current
-                  ? 'linear-gradient(90deg, #0077CC, #7C10CC)'
-                  : 'rgba(0,119,204,0.2)',
-              }}
-            />
+              className="flex items-center justify-center w-11 h-11"
+              aria-label={`Ga naar project ${project.name}`}
+            >
+              <span
+                className="transition-all duration-300 rounded-full block"
+                style={{
+                  width: i === current ? '24px' : '8px',
+                  height: '8px',
+                  background: i === current
+                    ? 'linear-gradient(90deg, #0077CC, #7C10CC)'
+                    : 'rgba(0,119,204,0.2)',
+                }}
+              />
+            </button>
           ))}
         </div>
       </div>

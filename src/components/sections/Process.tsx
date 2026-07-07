@@ -58,7 +58,7 @@ export default function Process() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="mb-20"
+          className="mb-12 md:mb-20"
         >
           <div className="font-mono text-xs tracking-[0.4em] text-cyan mb-4 opacity-70">
             {t.process.tag}
@@ -78,7 +78,7 @@ export default function Process() {
             }}
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-6">
             {t.process.steps.map((step, i) => (
               <motion.div
                 key={i}

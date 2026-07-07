@@ -132,7 +132,7 @@ export default function ArticlePage({ params }: Props) {
       <main className="relative" style={{ background: '#F8FAFC' }}>
         <div className="absolute inset-0 grid-overlay opacity-[0.15] pointer-events-none" />
 
-        <article className="relative z-10 max-w-3xl mx-auto px-6 sm:px-8 pt-14 pb-10">
+        <article className="relative z-10 max-w-3xl mx-auto px-5 sm:px-8 pt-10 sm:pt-14 pb-10">
           {/* Breadcrumb */}
           <nav className="font-mono text-[11px] tracking-widest text-[#1E1B4B] opacity-60 mb-8" aria-label="Breadcrumb">
             <Link href="/" className="hover:text-cyan transition-colors">HOME</Link>

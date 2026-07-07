@@ -74,7 +74,7 @@ export default function KennisbankPage() {
       <main className="relative min-h-screen" style={{ background: '#F8FAFC' }}>
         <div className="absolute inset-0 grid-overlay opacity-[0.18] pointer-events-none" />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-20 pb-12">
+        <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pt-12 sm:pt-20 pb-10 sm:pb-12">
           {/* Hero */}
           <div className="max-w-3xl">
             <div className="font-mono text-xs tracking-[0.4em] text-cyan mb-5 opacity-70">
@@ -103,11 +103,11 @@ export default function KennisbankPage() {
           </div>
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-24">
+        <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pb-20 sm:pb-24">
           {/* Uitgelicht artikel */}
           {featured && (
             <Link href={`/kennisbank/${featured.slug}`} className="block group mb-12">
-              <article className="glass-card overflow-hidden p-8 sm:p-10 transition-transform duration-300 group-hover:-translate-y-1">
+              <article className="glass-card overflow-hidden p-6 sm:p-10 transition-transform duration-300 group-hover:-translate-y-1">
                 <div className="flex flex-wrap items-center gap-3 mb-5">
                   <span
                     className="font-mono text-[10px] tracking-widest px-2.5 py-1 rounded"

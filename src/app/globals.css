@@ -59,6 +59,42 @@ video {
   height: auto;
 }
 
+/* ─── Touch & interactie ────────────────────────────────────── */
+/* Geen 300ms dubbel-tik-vertraging; eigen active-states i.p.v. grijze tap-flash */
+a,
+button,
+[role='button'] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Voelbare druk-feedback op touch (subtiel, alleen echte knoppen) */
+@media (hover: none) {
+  button:active,
+  a:active {
+    transform: scale(0.97);
+    transition: transform 0.1s ease;
+  }
+}
+
+/* Zichtbare focus voor toetsenbordgebruikers, in brandkleur */
+:focus-visible {
+  outline: 2px solid #0077CC;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Geen widows in koppen */
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+/* Safe-area voor toestellen met notch (viewport-fit=cover staat aan) */
+.safe-x {
+  padding-left: max(1.5rem, env(safe-area-inset-left));
+  padding-right: max(1.5rem, env(safe-area-inset-right));
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 4px;

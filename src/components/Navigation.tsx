@@ -45,7 +45,7 @@ export default function Navigation() {
           boxShadow: scrolled ? '0 4px 30px rgba(0,0,0,0.5)' : 'none',
         }}
       >
-        <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto safe-x py-4 flex items-center justify-between">
           {/* Logo */}
           <a
             href="#"
@@ -89,10 +89,10 @@ export default function Navigation() {
             {/* CTA */}
             <button
               onClick={() => scrollTo('#contact')}
-              className="font-mono text-xs tracking-widest px-5 py-2.5 rounded relative overflow-hidden group"
+              className="font-mono text-xs tracking-widest px-5 py-3 rounded relative overflow-hidden group"
               style={{
                 background: 'linear-gradient(135deg, #0077CC, #7C10CC)',
-                color: '#0A0A0F',
+                color: '#F8FAFC',
                 fontWeight: '700',
               }}
             >
@@ -106,9 +106,10 @@ export default function Navigation() {
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden flex flex-col gap-1.5 p-2"
+            className="md:hidden flex flex-col items-center justify-center gap-1.5 w-11 h-11 -mr-2"
             onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle menu"
+            aria-label="Menu openen of sluiten"
+            aria-expanded={menuOpen}
           >
             <span
               className="w-6 h-px bg-cyan transition-all duration-300"
@@ -141,7 +142,7 @@ export default function Navigation() {
               borderBottom: '1px solid rgba(0,119,204,0.1)',
             }}
           >
-            <div className="px-6 py-8 flex flex-col gap-6">
+            <div className="safe-x py-6 flex flex-col gap-2">
               {navLinks.map((link, i) => (
                 <motion.button
                   key={link.href}
@@ -149,7 +150,7 @@ export default function Navigation() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.05 }}
                   onClick={() => scrollTo(link.href)}
-                  className="font-mono text-sm tracking-widest text-[#0A0A1A] hover:text-cyan transition-colors text-left"
+                  className="font-mono text-sm tracking-widest text-[#0A0A1A] hover:text-cyan transition-colors text-left py-3"
                 >
                   <span className="text-cyan mr-3">{'>'}</span>
                   {link.label}
@@ -159,26 +160,25 @@ export default function Navigation() {
               <Link
                 href="/kennisbank"
                 onClick={() => setMenuOpen(false)}
-                className="font-mono text-sm tracking-widest text-[#0A0A1A] hover:text-cyan transition-colors text-left"
+                className="font-mono text-sm tracking-widest text-[#0A0A1A] hover:text-cyan transition-colors text-left py-3"
               >
                 <span className="text-cyan mr-3">{'>'}</span>
                 {t.nav.kennisbank}
               </Link>
 
-              <div className="flex items-center gap-4 pt-4 border-t border-gray-100">
+              <div className="flex items-center gap-4 pt-5 mt-2 border-t border-gray-100">
                 <button
                   onClick={() => setLanguage(language === 'nl' ? 'en' : 'nl')}
-                  className="font-mono text-xs tracking-widest border border-gray-300 px-3 py-1.5 rounded text-[#1E1B4B]"
+                  className="font-mono text-xs tracking-widest border border-gray-300 px-4 py-3 rounded text-[#1E1B4B]"
                 >
                   {language === 'nl' ? 'EN' : 'NL'}
                 </button>
 
                 <button
                   onClick={() => scrollTo('#contact')}
-                  className="font-mono text-xs tracking-widest px-5 py-2.5 rounded font-bold"
+                  className="flex-1 font-mono text-xs tracking-widest px-5 py-3.5 rounded font-bold text-center text-[#F8FAFC]"
                   style={{
                     background: 'linear-gradient(135deg, #0077CC, #7C10CC)',
-                    color: '#0A0A0F',
                   }}
                 >
                   {t.nav.cta}
