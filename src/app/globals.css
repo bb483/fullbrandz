@@ -38,9 +38,11 @@ body {
   overflow-wrap: break-word;
 }
 
-/* Custom cursor alleen op apparaten met een fijne aanwijzer (desktop) */
+/* Native cursor enkel verbergen wanneer de custom cursor daadwerkelijk
+   gemonteerd is (via de .custom-cursor-active class op body). Zo blijft de
+   muis gewoon zichtbaar op pagina's zonder custom cursor, zoals de kennisbank. */
 @media (hover: hover) and (pointer: fine) {
-  body {
+  body.custom-cursor-active {
     cursor: none;
   }
 }

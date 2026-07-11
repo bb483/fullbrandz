@@ -1,11 +1,21 @@
 ﻿'use client';
 
+import { useEffect } from 'react';
 import { useCursor } from '@/hooks/useCursor';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 export default function Cursor() {
   const { x, y, isHovering, isClicking } = useCursor();
   const reduced = useReducedMotion();
+
+  // Verberg de native cursor enkel zolang deze custom cursor gemonteerd is.
+  // Bij navigatie naar een pagina zonder <Cursor /> (bv. de kennisbank) wordt
+  // de class opgeruimd en is de gewone muis weer zichtbaar.
+  useEffect(() => {
+    if (reduced) return;
+    document.body.classList.add('custom-cursor-active');
+    return () => document.body.classList.remove('custom-cursor-active');
+  }, [reduced]);
 
   // Don't render on touch devices or if reduced motion
   if (reduced || typeof window === 'undefined') return null;
